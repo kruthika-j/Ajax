@@ -1,0 +1,99 @@
+
+
+*{
+    padding: 0px;
+    margin: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(236, 236, 238);
+    height: 100vh;
+}
+
+h1 {
+    font-size: 35px;
+}
+
+.signin {
+    height: 90vh;
+    background-color: white;
+    padding-top: 90px;
+    display: inline-block;
+    padding-left: 120px;
+    padding-right: 190px;
+}
+
+label {
+    font-size: small;
+    margin-top: -20px;
+}
+
+.details {
+    line-height-step: 10px;
+}
+
+.box {
+    width: 280px;
+    height: 30px;
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 6px;
+    margin-top: -20px;
+
+}
+
+#invalidMail, #invalidPw {
+    font-size: small;
+    color: red;
+}
+
+.fp {
+    display: block;
+    
+}
+
+.button {
+    width: 280px;
+    text-decoration: none;
+    border: 3px black;
+    border-radius: 4px;
+    background-color: rgb(142, 84, 229);
+    color: white;
+    display: block;
+    padding: 8px;
+    margin: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+
+#b1 {
+    padding: 8px;
+    background-color: white;
+    color: black;
+    border: 1px solid;
+    font-weight: bold;
+}
+
+.googleLogo{
+
+    width: 18px;
+    padding-right: 6px}
+
+.rightImage {
+    width: 110px;
+    justify-content: center;
+    align-items: center; 
+    margin: 250px;
+    filter: blur(5px);
+
+}
+/* 
+.blur {
+    width: 100%;
+    height:50vh;
+    border: 1px solid black;
+} */
