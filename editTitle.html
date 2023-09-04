@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Title</title>
+    <link rel="stylesheet" href="editTitle.css"> <!-- You can link your CSS file here -->
+</head>
+<body>
+    <h1>Edit Title</h1>
+    <div id="cardData">
+    </div>
+
+    <script>
+        const selectedCardData = JSON.parse(localStorage.getItem('selectedCardData'));
+
+        if (selectedCardData) {
+            const cardDataDiv = document.getElementById('cardData');
+            cardDataDiv.innerHTML = `<h2>${selectedCardData.title}</h2>`;
+        }
+
+        
+    </script>
+</body>
+</html>

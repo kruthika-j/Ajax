@@ -1,0 +1,25 @@
+
+.card {
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: 10px;
+    padding: 20px;
+    background-color: #e00606;
+    text-align: center;
+}
+
+.card h3 {
+    color: #181818;
+}
+
+.card p {
+    color: #777;
+}
+
+.card .edit {
+    background-color: rgb(224, 84, 28);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}

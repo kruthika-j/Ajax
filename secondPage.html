@@ -4,14 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="secondPage.css">
 </head>
 <body>
-    <p id="ajaxOnSecondPage"></p>
+    <div id="cardContainer">
+    </div>
 
     <script>
-        if (localStorage.getItem('responseData')) {
-            var storedData = localStorage.getItem('responseData');
-            document.getElementById("ajaxOnSecondPage").innerHTML = storedData;
+       if (localStorage.getItem('responseData')) {
+            var storedData = JSON.parse(localStorage.getItem('responseData'));
+            var cardContainer = document.getElementById("cardContainer");
+            
+            function editfn(cardData){
+                localStorage.setItem('selectedCardData', JSON.stringify(cardData));
+                window.location.href = "editTitle.html";
+            }
+
+            storedData.forEach(function(item) {
+                var card = document.createElement("div");
+                card.className = "card";
+
+
+                var userId = document.createElement("h3");
+                userId.textContent = "User Id: "+ item.id;
+
+                var Title = document.createElement("h3");
+                Title.textContent = item.title;
+
+                var editButton = document.createElement("button");
+                editButton.className = "edit";
+                editButton.textContent = "Edit";
+
+                editButton.onclick = function(){
+                    editfn(item);
+                } ;
+                card.appendChild(editButton);
+
+                card.appendChild(userId);
+                card.appendChild(Title);
+
+
+                cardContainer.appendChild(card);
+            });
         }
 
     </script>
