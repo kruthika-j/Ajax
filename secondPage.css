@@ -1,6 +1,5 @@
 
 .card {
-    border: 1px solid #ccc;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     max-width: 300px;
     margin: 10px;
@@ -16,10 +15,10 @@
 .card p {
     color: #777;
 }
-
-.card .edit {
-    background-color: rgb(224, 84, 28);
-    padding: 10px;
+.Title {
+    background-color: orange;
     border: none;
+    padding: 5px 10px;
     border-radius: 5px;
+    text-align: center;
 }

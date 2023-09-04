@@ -15,30 +15,23 @@
             var storedData = JSON.parse(localStorage.getItem('responseData'));
             var cardContainer = document.getElementById("cardContainer");
             
-            function editfn(cardData){
-                localStorage.setItem('selectedCardData', JSON.stringify(cardData));
-                window.location.href = "editTitle.html";
-            }
 
             storedData.forEach(function(item) {
                 var card = document.createElement("div");
                 card.className = "card";
-
 
                 var userId = document.createElement("h3");
                 userId.textContent = "User Id: "+ item.id;
 
                 var Title = document.createElement("h3");
                 Title.textContent = item.title;
+                Title.setAttribute("contentEditable","true");
 
-                var editButton = document.createElement("button");
-                editButton.className = "edit";
-                editButton.textContent = "Edit";
-
-                editButton.onclick = function(){
-                    editfn(item);
-                } ;
-                card.appendChild(editButton);
+                Title.addEventListener("input", function() {
+                    item.title = Title.textContent;
+                    localStorage.setItem('responseData', JSON.stringify(storedData));
+                    console.log("After editing:", storedData);
+                });
 
                 card.appendChild(userId);
                 card.appendChild(Title);
