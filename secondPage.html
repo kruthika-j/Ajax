@@ -7,38 +7,84 @@
     <link rel="stylesheet" href="secondPage.css">
 </head>
 <body>
+    <h1 class="heading">AJAX CARDS</h1>
     <div id="cardContainer">
     </div>
 
+    <button class="clear">Clear All</button>
+
     <script>
+
        if (localStorage.getItem('responseData')) {
             var storedData = JSON.parse(localStorage.getItem('responseData'));
             var cardContainer = document.getElementById("cardContainer");
             
 
-            storedData.forEach(function(item) {
+            storedData.forEach(function(item,index) {
                 var card = document.createElement("div");
                 card.className = "card";
 
                 var userId = document.createElement("h3");
                 userId.textContent = "User Id: "+ item.id;
+                card.appendChild(userId);
 
                 var Title = document.createElement("h3");
                 Title.textContent = item.title;
-                Title.setAttribute("contentEditable","true");
+                Title.contentEditable = false;
+                card.appendChild(Title);
 
                 Title.addEventListener("input", function() {
-                    item.title = Title.textContent;
-                    localStorage.setItem('responseData', JSON.stringify(storedData));
-                    console.log("After editing:", storedData);
+                    if (Title.isContentEditable) {
+                        item.title = Title.textContent;
+                        localStorage.setItem('responseData', JSON.stringify(storedData));
+                    }
                 });
 
-                card.appendChild(userId);
-                card.appendChild(Title);
+                var buttons = document.createElement("div");
+                buttons.className = "buttons";
+                card.appendChild(buttons);
+    
+
+                //edit button
+                var edit = document.createElement("button");
+                edit.className = "edit";
+                edit.textContent = "Edit";
+                buttons.appendChild(edit);
+
+
+                //delete button
+                var del = document.createElement("button");
+                del.className = "del";
+                del.textContent = "Delete";
+                buttons.appendChild(del);
+
+                
+
+                edit.addEventListener("click",function(){
+                    Title.contentEditable = !Title.isContentEditable;
+                    if (Title.contentEditable) {
+                        Title.focus();
+                    }
+                })
+                
+                del.addEventListener("click", deletecard(index));
+                
+
+
+                
+                
 
 
                 cardContainer.appendChild(card);
             });
+            function deletecard(index) {
+                return function() {
+                    storedData.removeChild(index)
+                    storedData.splice(index, 1);
+                    localStorage.setItem('responseData', JSON.stringify(storedData));
+                    cardContainer.removeChild(cardContainer.childNodes[index]);
+                };
+            }
         }
 
     </script>

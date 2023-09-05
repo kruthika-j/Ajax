@@ -1,164 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-</head>
-
-<body>
-
+  <body>
     <div class="container">
-        <div class="signin">
-            <h1>Welcome back</h1><br>
-            <p style="font-size: 14px;color: gray; margin-top: -20px;">Welcome back! Please enter your details</p><br>
-            <form class="details" action="/secondPage.html" target="_blank" method="post">
-                <label for="email" style="text-align: left;">Email</label><br><br>
-                <input type="email" class="box email" placeholder="Enter your email" id="email" autocomplete="off" onkeyup="displayNoneEmail()">
-                <br>
-                <p id="invalidMail"></p>
-                <br>
-                <label for="password">Password</label>
-                <br><br>
-                <input type="password" id="password" class="box password" placeholder="*************" onkeyup="displayNonePassword()"><br>
-                <p id="invalidPw"></p>
-                <br>
-                <div class="fp">
-                    <input type="checkbox">
-                    <label>Remember for 30 days</label>
-                    <a href="" style="float: right;text-decoration: none;font-size: small;">Forgot password</a>
-                </div>
-                <br><br>
-                <button class="button" onclick="signin()" style="margin-top: -20px;">Signin</button>
-                <button class="button" id="b1">
-                    <img src="googleLogo.jfif" class="googleLogo" alt="">
-                    Sign up with google
-                </button>
-                <p style="display:inline-block; padding-left: 45px; font-size: small; color: gray;">Don't have an
-                    account?</p>
-                <a href="#" style="text-decoration: none; font-size: small;">Sign up</a>
-            </form>
-        </div>
+      <div class="signin">
+        <h1>Welcome back</h1>
+        <br />
+        <p style="font-size: 14px; color: gray; margin-top: -20px">
+          Welcome back! Please enter your details
+        </p>
+        <br />
+        <form
+          class="details"
+          action="/secondPage.html"
+          target="_blank"
+          method="post"
+        >
+          <label for="email" style="text-align: left">Email</label><br /><br />
+          <input
+            type="email"
+            class="box email"
+            placeholder="Enter your email"
+            id="email"
+            autocomplete="off"
+            onkeyup="displayNoneEmail()"
+          />
+          <br />
+          <p id="invalidMail"></p>
+          <br />
+          <label for="password">Password</label>
+          <br /><br />
+          <input
+            type="password"
+            id="password"
+            class="box password"
+            placeholder="*************"
+            onkeyup="displayNonePassword()"
+          /><br />
+          <p id="invalidPw"></p>
+          <br />
+          <div class="fp">
+            <input type="checkbox" />
+            <label>Remember for 30 days</label>
+            <a
+              href=""
+              style="float: right; text-decoration: none; font-size: small"
+              >Forgot password</a
+            >
+          </div>
+          <br /><br />
+          <button class="button" onclick="signin()" style="margin-top: -20px">
+            Signin
+          </button>
+          <button class="button" id="b1">
+            <img src="googleLogo.jfif" class="googleLogo" alt="" />
+            Sign up with google
+          </button>
+          <p
+            style="
+              display: inline-block;
+              padding-left: 45px;
+              font-size: small;
+              color: gray;
+            "
+          >
+            Don't have an account?
+          </p>
+          <a href="#" style="text-decoration: none; font-size: small"
+            >Sign up</a
+          >
+        </form>
+      </div>
 
-        <div>
-            <p id="ajax">Lorem ipsum dolor sit amet.</p>
-        </div>
+      <div>
+        <p id="ajax">Lorem ipsum dolor sit amet.</p>
+      </div>
     </div>
 
-
-   <script>
-    
- 
-    function displayNoneEmail() {
+    <script>
+      function displayNoneEmail() {
         let mail = document.getElementById("email");
         document.getElementById("email").style.backgroundColor = "white";
         document.getElementById("invalidMail").style.display = "none";
-    }
+      }
 
-    
-    function displayNonePassword() {
+      function displayNonePassword() {
         let mail = document.getElementById("password");
         document.getElementById("password").style.backgroundColor = "white";
         document.getElementById("invalidPw").style.display = "none";
-    }
+      }
 
+      function signin() {
+        event.preventDefault();
 
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]/;
+        let specialCharRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\]/;
 
-function signin() {
+        var validUsers = [
+          {
+            email: "abc@gmail.com",
+            pw: "1234567@",
+          },
+          {
+            email: "xyz@gmail.com",
+            pw: "7654321@",
+          },
+        ];
 
-            event.preventDefault();
+        let mail = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
 
-            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]/;
-            let specialCharRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\]/;
+        document.getElementById("invalidMail").innerHTML = "";
+        document.getElementById("invalidPw").innerHTML = "";
+        document.getElementById("email").style.backgroundColor = "white";
+        document.getElementById("password").style.backgroundColor = "white";
 
-            var validUsers = [
-                {
-                    email: "abc@gmail.com",
-                    pw: "1234567@"
-                },
-                {
-                    email: "xyz@gmail.com",
-                    pw: "7654321@"
-                }
-            ];
+        let flag = 0;
+        if (mail == "") {
+          let text = "Enter mail id";
+          document.getElementById("invalidMail").innerHTML = text;
+          document.getElementById("email").style.backgroundColor =
+            "rgba(255, 0, 0, 0.33)";
+          document.getElementById("invalidMail").style.display = "block";
+          flag = 1;
+        } else if (!emailRegex.test(mail)) {
+          let text = "Enter a valid email address";
+          document.getElementById("invalidMail").innerHTML = text;
+          document.getElementById("invalidMail").style.display = "block";
+          flag = 1;
+        }
 
-            let mail = document.getElementById("email").value;
-            let password = document.getElementById("password").value;
-         
-            document.getElementById("invalidMail").innerHTML = "";
-            document.getElementById("invalidPw").innerHTML = "";
-            document.getElementById("email").style.backgroundColor = "white";
-            document.getElementById("password").style.backgroundColor = "white";
-        
-            let flag = 0;
-            if (mail == "") {
-                let text = "Enter mail id";
-                document.getElementById("invalidMail").innerHTML = text;
-                document.getElementById("email").style.backgroundColor = "rgba(255, 0, 0, 0.33)";
-                document.getElementById("invalidMail").style.display = "block";
-                flag = 1;
-            } else if (!emailRegex.test(mail)) {
-                let text = "Enter a valid email address";
-                document.getElementById("invalidMail").innerHTML = text;
-                document.getElementById("invalidMail").style.display = "block";
-                flag = 1;
-            }
-           
-            if (password == "") {
-                let textpw = "Enter password";
-                document.getElementById("invalidPw").innerHTML = textpw;
-                document.getElementById("password").style.backgroundColor = "rgba(255, 0, 0, 0.33)";
-                document.getElementById("invalidPw").style.display = "block";
-                flag = 1;
-            } else if (password.length <= 6) {
-                let textpw = "Enter more than 6 characters";
-                document.getElementById("invalidPw").innerHTML = textpw;
-                document.getElementById("invalidPw").style.display = "block";
-                flag = 1
-            } else if (!specialCharRegex.test(password)) {
-                let textpw = "Password must contain at least one special character";
-                document.getElementById("invalidPw").innerHTML = textpw;
-                document.getElementById("invalidPw").style.display = "block";
-                flag = 1
-            }
-               
-            let validUser = null; 
+        if (password == "") {
+          let textpw = "Enter password";
+          document.getElementById("invalidPw").innerHTML = textpw;
+          document.getElementById("password").style.backgroundColor =
+            "rgba(255, 0, 0, 0.33)";
+          document.getElementById("invalidPw").style.display = "block";
+          flag = 1;
+        } else if (password.length <= 6) {
+          let textpw = "Enter more than 6 characters";
+          document.getElementById("invalidPw").innerHTML = textpw;
+          document.getElementById("invalidPw").style.display = "block";
+          flag = 1;
+        } else if (!specialCharRegex.test(password)) {
+          let textpw = "Password must contain at least one special character";
+          document.getElementById("invalidPw").innerHTML = textpw;
+          document.getElementById("invalidPw").style.display = "block";
+          flag = 1;
+        }
 
-            for (let i = 0; i < validUsers.length; i++) {
-                let user = validUsers[i];
-                if (user.email === mail && user.pw === password) {
-                    validUser = user; 
-                    break; 
-                }
-            }
-            
-            if(flag ==0 && !validUser){
-            alert ("Please enter a valid credentials");
-            }
+        let validUser = null;
 
-            if (validUser) {
-                loaddata();
-            } 
-            else {
-                return false;
-            }
-            
-            function loaddata() {
-                var a = new XMLHttpRequest();
-                a.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        var responseData = this.responseText;
-                        localStorage.setItem('responseData', responseData);
-                        window.location.href = 'secondPage.html';                    }
-                    };
-                a.open("GET", "https://jsonplaceholder.typicode.com/todos/", true);
-                a.send();
-            }
-}
+        for (let i = 0; i < validUsers.length; i++) {
+          let user = validUsers[i];
+          if (user.email === mail && user.pw === password) {
+            validUser = user;
+            break;
+          }
+        }
+
+        if (flag == 0 && !validUser) {
+          alert("Please enter a valid credentials");
+        }
+
+        if (validUser) {
+          loaddata();
+        } else {
+          return false;
+        }
+      }
+
+      function loaddata() {
+        window.location.assign("api.html");
+      }
     </script>
-</body>
-
+    <script src="api.js" defer></script>
+  </body>
 </html>
