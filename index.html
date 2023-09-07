@@ -177,8 +177,17 @@
       }
 
       function loaddata() {
-        window.location.assign("api.html");
-      }
+                var a = new XMLHttpRequest();
+                a.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var responseData = this.responseText;
+                        localStorage.setItem('responseData', responseData);
+                        window.location.href = 'secondPage.html';              
+                      }
+                    };
+                a.open("GET", "https://jsonplaceholder.typicode.com/todos/", true);
+                a.send();
+            }
     </script>
     <script src="api.js" defer></script>
   </body>
