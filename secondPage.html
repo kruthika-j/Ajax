@@ -4,16 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="secondPage.css">
 </head>
 <body>
-    <p id="ajaxOnSecondPage"></p>
+    <h1 class="heading">AJAX CARDS</h1>
+    <div id="cardContainer">
+        <p id="noDataFound" style="display: none;">No data found.</p>
+    </div>
+
+    <button class="clear" id="clearButton">Clear All</button>
 
     <script>
-        if (localStorage.getItem('responseData')) {
-            var storedData = localStorage.getItem('responseData');
-            document.getElementById("ajaxOnSecondPage").innerHTML = storedData;
+        var cardContainer = document.getElementById("cardContainer");
+        var noDataFound = document.getElementById("noDataFound");
+
+        function updateLocalStorage(data) {
+            localStorage.setItem('responseData', JSON.stringify(data));
         }
 
+        function deleteCard(index) {
+            storedData.splice(index, 1);
+            updateLocalStorage(storedData);
+        }
+
+        function createCard(item, index) {
+            var card = document.createElement("div");
+            card.className = "card";
+
+            var userId = document.createElement("h3");
+            userId.textContent = "User Id: " + item.id; 
+            card.appendChild(userId);
+
+            var Title = document.createElement("h3");
+            Title.textContent = item.title;
+            Title.contentEditable = false;
+            card.appendChild(Title);
+
+            var buttons = document.createElement("div");
+            buttons.className = "buttons";
+            card.appendChild(buttons);
+
+            // Edit button
+            var edit = document.createElement("button");
+            edit.className = "edit";
+            edit.textContent = "Edit";
+            buttons.appendChild(edit);
+
+            // Delete button
+            var del = document.createElement("button");
+            del.className = "del";
+            del.textContent = "Delete";
+            buttons.appendChild(del);
+
+            edit.addEventListener("click", function() {
+                Title.contentEditable = !Title.isContentEditable;
+                if (Title.contentEditable) {
+                    Title.focus();
+                }
+            });
+
+            Title.addEventListener("input", function() {
+                if (Title.isContentEditable) {
+                    item.title = Title.textContent;
+                    updateLocalStorage(storedData);
+                }
+            });
+
+            del.addEventListener("click", function() {
+                var index = storedData.findIndex(function(data) {
+                    return data.id === item.id; 
+                });
+
+                if (index !== -1) {
+                    cardContainer.removeChild(card);
+
+                    deleteCard(index);
+
+                    if (storedData.length === 0) {
+                        noDataFound.style.display = "block";
+                    }
+                }
+            });
+
+            cardContainer.appendChild(card);
+        }
+
+        var storedData = localStorage.getItem('responseData')
+            ? JSON.parse(localStorage.getItem('responseData'))
+            : [];
+
+        if (storedData.length === 0) {
+            noDataFound.style.display = "block";
+        }
+
+        storedData.forEach(function(item, index) {
+            createCard(item, index);
+        });
+
+        var clearButton = document.getElementById("clearButton");
+        clearButton.addEventListener("click", function() {
+            while (cardContainer.firstChild) {
+                cardContainer.removeChild(cardContainer.firstChild);
+            }
+
+            storedData = [];
+            updateLocalStorage(storedData);
+            noDataFound.style.display = "block";
+        });
     </script>
 </body>
 </html>
