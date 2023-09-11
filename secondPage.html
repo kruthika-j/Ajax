@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="secondPage.css" />
+    <link rel="stylesheet" href="mediaQuery.css">
   </head>
   <body>
     <h1 class="heading">AJAX CARDS</h1>
@@ -108,8 +109,10 @@
         }
         storedData = [];
         updateLocalStorage(storedData);
-        noDataFound.style.display = "block";
+
         localStorage.removeItem("responseData");
+        cardContainer.appendChild(noDataFound);
+        noDataFound.style.display = "block";
       });
 
       var responseData = localStorage.getItem("responseData");
