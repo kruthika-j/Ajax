@@ -59,7 +59,7 @@
             Signin
           </button>
           <button class="button" id="b1">
-            <img src="googleLogo.jfif" class="googleLogo" alt="" />
+            <img src="googleLogo.png" class="googleLogo" alt="" />
             Sign up with google
           </button>
           <p
@@ -76,10 +76,6 @@
             >Sign up</a
           >
         </form>
-      </div>
-
-      <div>
-        <p id="ajax">Lorem ipsum dolor sit amet.</p>
       </div>
     </div>
 
@@ -167,28 +163,30 @@
 
         if (flag == 0 && !validUser) {
           alert("Please enter a valid credentials");
+          return false;
         }
 
         if (validUser) {
           loaddata();
-        } else {
-          return false;
         }
       }
 
       function loaddata() {
-                var a = new XMLHttpRequest();
-                a.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        var responseData = this.responseText;
-                        localStorage.setItem('responseData', responseData);
-                        window.location.href = 'secondPage.html';              
-                      }
-                    };
-                a.open("GET", "https://jsonplaceholder.typicode.com/todos/", true);
-                a.send();
+        var responseData = localStorage.getItem("responseData");
+        if (!responseData || responseData === "[]" || responseData == "") {
+          var a = new XMLHttpRequest();
+          a.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              responseData = this.responseText;
+              localStorage.setItem("responseData", responseData);
             }
+          };
+          a.open("GET", "https://jsonplaceholder.typicode.com/todos/", true);
+          a.send();
+        } else {
+          window.location.href = "secondPage.html";
+        }
+      }
     </script>
-    <script src="api.js" defer></script>
   </body>
 </html>
